@@ -8,7 +8,7 @@
       <p>Description: {{post.description}}</p>
       <p>QuoteNumber: {{post.quoteNumber}}</p>
       <p>PostID: {{post.id}}</p>
-      <v-btn @click="firebaseDeleteSingleItem(post.id)">delete</v-btn>
+     
     </v-card>
   </div>
 </template>
@@ -17,14 +17,12 @@
 import { db } from '../firebase.js'
 import { ref } from 'vue'
 
-import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
+import { collection, getDocs/* , doc, deleteDoc */ } from "firebase/firestore";
 
 const posts = ref([]) 
 
-const firebaseDeleteSingleItem = async(id) => {
-  await deleteDoc(doc(db, "posts", id));
-  console.log("Data deleted", id)
-} 
+//Make Delete again
+
 
 const querySnapshot = await getDocs(collection(db, "posts"));
 querySnapshot.forEach((doc) => {
@@ -33,6 +31,8 @@ querySnapshot.forEach((doc) => {
     ...doc.data(), 
     id: doc.id 
   })
+
+  //debugger
 
 
   console.log(doc.id, " => ", doc.data());

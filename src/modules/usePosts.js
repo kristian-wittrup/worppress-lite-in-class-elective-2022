@@ -5,13 +5,16 @@ import { collection, onSnapshot, doc , deleteDoc, addDoc, updateDoc  } from "fir
 const usePosts = () => {
   
   const posts = ref([]) 
-  const postDataRef = collection(db, "posts");
+  const postDataRef = collection(db, "posts")
+
+  const AddItemData = ref({description:null})
+
 
   // Grab data from firebase (realtime)
   const getPostsData = () => {
     onSnapshot(postDataRef, (snapshot) => {
       posts.value = snapshot.docs.map(doc => {
-        console.log("is it reaching this step")
+       // console.log("is it reaching this step")
         return {
           ...doc.data(),
           id: doc.id
@@ -23,24 +26,37 @@ const usePosts = () => {
   // Add static data to Firebase
   const firebaseAddSingleItem = async() => {
     await addDoc(collection(db, "posts"), {
-      title: "Test Title",
-      description: "Test Description",
-      quoteNumber: 1
+    //  title: AddItemData.value.addPostTitle,
+      description: AddItemData.value.description,
+    //  quoteNumber: AddItemData.value.addPostQuoteNumber
+    }
+    ).then(() => {
+      AddItemData.value = ref({description:null})
     })
   }
 
   // UpdateDoc
   const firebaseUpdateSingleItem = async(id) => {
     await updateDoc(doc(postDataRef, id), {
-      title: "Updated Title",
-      description: "Updated Description",
-      quoteNumber: 42
+      title: posts.value.find(post => post.id === id).title,
+      description: posts.value.find(post => post.id === id).description,
+      quoteNumber: posts.value.find(post => post.id === id).quoteNumber
     });
    // debugger
   }
 
+  // Kennie mode stuff with passing through post.id:
+  // const updatePost = async (post) => {
+  //   await updateDoc(doc(postDataRef, post.id), {
+    //   title: post.title,
+    //   description: post.description,
+    //   quoteNumber : post.quoteNumber    
+  //   });
+  // };
+  
 
-  //Make Delete again
+
+  //Make Delete   #4.1
   const firebaseDeleteSingleItem = async(id) => {
     //debugger
     await deleteDoc(doc(db, "posts", id))  // make it a reference instead
@@ -51,10 +67,12 @@ const usePosts = () => {
 
   return {
     posts,
+    AddItemData,
     getPostsData,
     firebaseDeleteSingleItem,
     firebaseAddSingleItem,
-    firebaseUpdateSingleItem
+    firebaseUpdateSingleItem,
+    
   }
 }
 

@@ -1,0 +1,33 @@
+#1 NPM: vue create ProjectName
+#2 NPM: add vuetify
+#3 Removed HelloWorld.vue component 
+#4 Added firebase
+  #4.1 npm install firebase --save
+  #4.2 Logged into firebase, created a firestore + changed rules (added 1 year to lifespan)
+  #4.3 Added firebase.js file + copied database information into file
+  #4.4 Exported fb to use globally
+
+#5 Test firebase connect 
+  #5.1 Manually added data to Firebase firestore, and cRud(read) and display data in vue
+  #5.2 Created function (getPostsData) with onSnapshot
+  #5.3 Use v-for loop to present data fra Firebase
+
+#6 Created Composable function (folder: Modules)
+  #6.1 Created file: usePosts.js + cut/paste function into from homeview.vue + imported vue functionality
+  #6.2 Constructed the create, delete and update function with static data
+
+#7 Created function : Changed to dynamic data
+  #7.1 Using input-fields with v-model(2-way binding) and passed data through function to send to firebase
+  #7.2 Same procedure for Update
+
+#8 Installed vueQuill: npm install @vueup/vue-quill@beta --save
+  #8.1 Used local import for individual component
+  #8.2 Added expaned toolbar + v-model:content to vueQuill
+  #8.3 v-bind data from vueQuill to pass to Firebase(through v-model:content)
+  #8.4 VueQuill for New Post + Update Post
+  
+
+
+#
+
+#10 Login / Auth / Navigational Guards

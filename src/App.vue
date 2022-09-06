@@ -1,8 +1,10 @@
 <template>
   <v-app>
-    <v-card>
+    <v-card >
       <v-layout>
+        <!-- add permanent to have it always be shown -->
         <v-navigation-drawer
+          permanent
           expand-on-hover
           rail
         >
@@ -24,12 +26,13 @@
               <v-list-item prepend-icon="mdi-account-multiple" title="Shingle Posts" value="shared"></v-list-item>
             </router-link>
             
-            
-            <v-list-item prepend-icon="mdi-star" title="Starred" value="starred"></v-list-item>
+            <router-link to="/editpostsview">
+              <v-list-item prepend-icon="mdi-star" title="Starred" value="starred"></v-list-item>
+            </router-link>
           </v-list>
         </v-navigation-drawer>
 
-        <v-main>
+        <v-main  class="ma-2">
           <Suspense>
             <router-view></router-view>
           </Suspense>
@@ -49,3 +52,10 @@ export default {
   }),
 }
 </script>
+
+
+<style lang="scss">
+.v-main {
+  min-height: 100vh;
+}
+</style>

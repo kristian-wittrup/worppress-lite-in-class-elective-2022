@@ -3,11 +3,11 @@
     <v-btn class="bg-green-lighten-3" @click="isOpen = true">Add New Post</v-btn>
     <teleport to="body">
       <div class="modal" v-if="isOpen">
-        <NewPostView @click="isOpen = false">
+        <NewPostView @close="isOpen = false">
 
         </NewPostView>
       </div>
-    </teleport>
+    </teleport>   
   </div>
 </template>
 
@@ -20,10 +20,10 @@ const isOpen = ref(false)
 </script>
 
 <style lang="scss">
-
+/* 
 .root {
   position: relative;
-}
+} */
 
 .modal {
   position: absolute;

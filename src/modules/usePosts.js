@@ -10,6 +10,7 @@ const usePosts = () => {
   const AddItemData = ref({description:null})
 
   const myEditor = ref('') // Using this, to update VueQuill content, when we clear it
+  let snackbar = ref(false)
 
   // Grab data from firebase (realtime)
   const getPostsData = () => {
@@ -33,7 +34,7 @@ const usePosts = () => {
     }
     ).then(() => {
       myEditor.value.setContents('') // Using a bound ref="myEditor", to clear and update the vueQuill
-     
+      snackbar.value = true
     })
   }
 
@@ -73,6 +74,7 @@ const usePosts = () => {
     posts,
     AddItemData,
     myEditor,
+    snackbar,
     getPostsData,
     firebaseDeleteSingleItem,
     firebaseAddSingleItem,

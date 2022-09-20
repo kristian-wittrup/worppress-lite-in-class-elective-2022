@@ -1,5 +1,22 @@
 <template>
   <div>
+    <v-snackbar
+      top="true"
+      v-model="snackbar"
+    >
+      You have added stuff to firebase
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="pink"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
     <v-btn
     id="floatyClose" 
     rounded="0" 
@@ -36,7 +53,7 @@ import { ref } from 'vue'
 
 import usePosts from '../modules/usePosts'
 
-const { firebaseAddSingleItem, myEditor, AddItemData } = usePosts()
+const { firebaseAddSingleItem, myEditor, AddItemData, snackbar } = usePosts()
 const description = ref('')
 
 </script>

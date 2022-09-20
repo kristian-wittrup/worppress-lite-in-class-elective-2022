@@ -9,10 +9,12 @@
 
       <QuillEditor toolbar="full" theme="snow" v-model:content="AddItemData.description" 
       placeholder="Enter content"
-      contentType="html" />
+      contentType="html" 
+      ref="myEditor"
+      />
 
      <!--   -->
-      <v-btn @click="firebaseAddSingleItem()">Add Dynamic Item</v-btn>
+      <v-btn class="bg-green-lighten-3" @click="firebaseAddSingleItem()">Add Dynamic Item</v-btn>
     </v-card>
     
     <v-card class="bg-amber-lighten-4 text-grey-darken-4 ma-5 pa-4" v-for="post in posts" :key="post">
@@ -20,8 +22,8 @@
       
       <QuillEditor toolbar="full" theme="snow" v-model:content="post.description" contentType="html" />
 
-      <v-btn @click="firebaseDeleteSingleItem(post.id)">Delete item</v-btn>
-      <v-btn @click="firebaseUpdateSingleItem(post.id)">Edit item (static)</v-btn>
+      <v-btn class="bg-red-lighten-3" @click="firebaseDeleteSingleItem(post.id)">Delete item</v-btn>
+      <v-btn class="bg-blue-lighten-3" @click="firebaseUpdateSingleItem(post.id)">Edit item (static)</v-btn>
     </v-card>
   </div>
 </template>
@@ -40,6 +42,7 @@ import usePosts from '../modules/usePosts'
 // const posts = ref([]) 
 const { 
   posts,
+  myEditor,
   AddItemData, 
   getPostsData, 
   firebaseDeleteSingleItem, 

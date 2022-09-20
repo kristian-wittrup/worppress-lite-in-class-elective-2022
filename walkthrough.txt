@@ -31,3 +31,129 @@
 #
 
 #10 Login / Auth / Navigational Guards
+
+
+
+
+Do inClass:
+
+Use template ref to update VueQuill 
+  UsePosts.js + EditPostsView
+
+
+Teleport:
+EditPostsView 
+  Make Teleport for "new Post":
+
+  <v-btn class="bg-blue-lighten-3" @click="isOpen = true"><v-icon>mdi-file-plus</v-icon>Add new Posts</v-btn> | 
+  <teleport to="body">
+    <div class="modal" v-if="isOpen">
+      <AboutView @close="isOpen = false">
+      </AboutView>
+    </div>
+  </teleport>
+
+  Add: 
+    const isOpen = ref(false)
+    import { ref } from 'vue'
+
+!NB remember to mark out AddItemData in return {}
+
+
+CSS:
+<style lang="scss">
+.root {
+  position: relative;
+}
+
+ul {
+  padding-left:20px;
+}
+
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  flex-direction: column;
+
+
+}
+
+.modal > div {
+  /* 
+  width: 100%;
+  height: 100%;
+  */
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  padding: 64px;
+  width:95%;
+}
+
+#floatyClose {
+  position: fixed;
+  top: 96px;
+  left: -5px;
+  z-index: 99;
+}
+
+</style>
+
+
+-------
+
+Make new component: NewPostView.vue
+<template>
+ <div>
+  <h1>New post</h1>
+  <v-btn
+    id="floatyClose" 
+    rounded="0" 
+    size="large"
+    color="warning" 
+    class="bg-yellow-lighten-3 pa-3 my-1" 
+    @click="$emit('close')"><v-icon>mdi-close</v-icon></v-btn>
+  
+  <v-card class="my-5 pa-5 bg-white rounded " elevation="1">
+  
+    <!-- <QuillEditor theme="snow" toolbar="full" v-model:content="description" placeholder="Enter content" contentType="html"  /> -->
+    <QuillEditor 
+      toolbar="full" 
+      theme="snow" 
+      v-model:content="AddItemData.description" 
+      placeholder="Enter content"
+      contentType="html" 
+      ref="myEditor" 
+      /> 
+    <v-row >
+      <v-col class="d-flex justify-space-between mt-3" cols="12">
+        <v-btn class="bg-purple-lighten-3" @click="firebaseAddSingleItem(description)"><v-icon>mdi-file-plus</v-icon>Add data</v-btn>
+      </v-col>
+    </v-row>
+  </v-card> 
+</div>
+</template>
+
+
+
+<script setup>
+  import { QuillEditor } from '@vueup/vue-quill'
+  import '@vueup/vue-quill/dist/vue-quill.snow.css';
+  import { ref } from 'vue'
+  
+  import usePosts from '../modules/usePosts'
+  
+    const { firebaseAddSingleItem, myEditor, AddItemData } = usePosts()
+    const description = ref('')
+  </script>
+  
+  <style lang="scss">
+  
+  </style>

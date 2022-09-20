@@ -9,6 +9,7 @@ const usePosts = () => {
 
   const AddItemData = ref({description:null})
 
+ // const myEditor = ref('') // Using this, to update VueQuill content, when we clear it
 
   // Grab data from firebase (realtime)
   const getPostsData = () => {
@@ -27,15 +28,16 @@ const usePosts = () => {
   const firebaseAddSingleItem = async() => {
     await addDoc(collection(db, "posts"), {
     //  title: AddItemData.value.addPostTitle,
-      description: AddItemData.value.description,
     //  quoteNumber: AddItemData.value.addPostQuoteNumber
+      description: AddItemData.value.description,
     }
     ).then(() => {
-      AddItemData.value = ref({description:null})
+  //    myEditor.value.setContents('') // Using a bound ref="myEditor", to clear and update the vueQuill
+     
     })
   }
 
-  // UpdateDoc
+  // UpdateDoc with .find() method. 
   const firebaseUpdateSingleItem = async(id) => {
     await updateDoc(doc(postDataRef, id), {
       title: posts.value.find(post => post.id === id).title,
@@ -45,7 +47,9 @@ const usePosts = () => {
    // debugger
   }
 
-  // Kennie mode stuff with passing through post.id:
+  // Alternate way: Using the v-for loop and the attached post.id to track which object we change
+  // This will work fine when using a Loop
+
   // const updatePost = async (post) => {
   //   await updateDoc(doc(postDataRef, post.id), {
     //   title: post.title,
@@ -68,6 +72,7 @@ const usePosts = () => {
   return {
     posts,
     AddItemData,
+  //  myEditor,
     getPostsData,
     firebaseDeleteSingleItem,
     firebaseAddSingleItem,

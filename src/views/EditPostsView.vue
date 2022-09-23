@@ -36,10 +36,6 @@ import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import { onMounted } from 'vue'
 import usePosts from '../modules/usePosts' 
 
-
-
-//import {  /* getDocs, */ doc , deleteDoc } from "firebase/firestore";
-// const posts = ref([]) 
 const { 
   posts,
   myEditor,
@@ -57,17 +53,4 @@ onMounted(() => {
 })
 
 
-// const querySnapshot = await getDocs(collection(db, "posts"));
-// querySnapshot.forEach((doc) => {
-//   // doc.data() is never undefined for query doc snapshots
-//     posts.value.push({ 
-//     ...doc.data(), 
-//     id: doc.id 
-//   })
-
-//   //debugger
-
-
-//   console.log(doc.id, " => ", doc.data());
-// });
 </script>

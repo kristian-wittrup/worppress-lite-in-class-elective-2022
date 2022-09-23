@@ -41,9 +41,9 @@ const usePosts = () => {
   // UpdateDoc with .find() method. 
   const firebaseUpdateSingleItem = async(id) => {
     await updateDoc(doc(postDataRef, id), {
-      title: posts.value.find(post => post.id === id).title,
+      //title: posts.value.find(post => post.id === id).title,
       description: posts.value.find(post => post.id === id).description,
-      quoteNumber: posts.value.find(post => post.id === id).quoteNumber
+      //quoteNumber: posts.value.find(post => post.id === id).quoteNumber
     });
   
   }

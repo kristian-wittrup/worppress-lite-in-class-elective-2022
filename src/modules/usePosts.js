@@ -45,7 +45,7 @@ const usePosts = () => {
       description: posts.value.find(post => post.id === id).description,
       quoteNumber: posts.value.find(post => post.id === id).quoteNumber
     });
-   // debugger
+  
   }
 
   // Alternate way: Using the v-for loop and the attached post.id to track which object we change

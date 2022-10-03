@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div v-if="isLoggedin">
     <h1>
-      Edit page stuff
+      Edit page stuff - Hello  {{user}}
     </h1>
 
     <v-card class="bg-teal-lighten-5 pa-5 text-grey-darken-4">
@@ -18,7 +18,7 @@
     </v-card>
     
     <v-card class="bg-amber-lighten-4 text-grey-darken-4 ma-5 pa-4" v-for="post in posts" :key="post">
-      <h5>PostID: {{post.id}}</h5>
+      <h5>I have never {{post.id}}</h5>
       
       <QuillEditor toolbar="full" theme="snow" v-model:content="post.description" contentType="html" />
 
@@ -26,15 +26,24 @@
       <v-btn class="bg-blue-lighten-3" @click="firebaseUpdateSingleItem(post.id)">Edit item (static)</v-btn>
     </v-card>
   </div>
+  <div v-else>Not logged in</div>
 </template>
 
 <script setup>
 //import { db } from '../firebase.js'
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
+import usePosts from '../modules/usePosts' 
 
 import { onMounted } from 'vue'
-import usePosts from '../modules/usePosts' 
+
+//import useUsers from '@/modules/useUsers'
+
+//const { isLoggedin, isLoggedInTest } = useUsers()
+
+onMounted(() => {
+  //isLoggedInTest()
+})
 
 const { 
   posts,
@@ -52,5 +61,6 @@ onMounted(() => {
   getPostsData()
 })
 
+const user = localStorage.getItem('userLoginInfoFireBase')
 
 </script>

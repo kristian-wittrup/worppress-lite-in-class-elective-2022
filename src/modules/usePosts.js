@@ -43,7 +43,6 @@ const usePosts = () => {
     await updateDoc(doc(postDataRef, id), {
       //title: posts.value.find(post => post.id === id).title,
       description: posts.value.find(post => post.id === id).description,
-      //quoteNumber: posts.value.find(post => post.id === id).quoteNumber
     });
   
   }

@@ -29,6 +29,21 @@
             <router-link to="/editpostsview">
               <v-list-item prepend-icon="mdi-star" title="Starred" value="starred"></v-list-item>
             </router-link>
+          
+            <router-link to="/login">
+              <v-list-item prepend-icon="mdi-login" title="Login" value="login"></v-list-item>
+            </router-link>
+
+            <router-link to="/navguardviewtest">
+              <v-list-item prepend-icon="mdi-login" title="test" value="login"></v-list-item>
+            </router-link>
+
+            <span v-if="isLoggedin">
+              <v-btn @click="logOut()">
+                Logout
+              </v-btn>
+             
+            </span>
           </v-list>
         </v-navigation-drawer>
 
@@ -42,15 +57,30 @@
   </v-app>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from 'vue'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
-export default {
-  name: 'App',
+import useUsers from '@/modules/useUsers'
 
-  data: () => ({
-    //
-  }),
-}
+const { logOut } = useUsers()
+
+let auth
+const isLoggedin = ref(false)
+
+onMounted(() => {
+  auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if(user) {
+      isLoggedin.value = true
+    }
+    else {
+      isLoggedin.value = false
+    }
+  })
+
+})
+
 </script>
 
 

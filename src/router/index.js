@@ -56,10 +56,10 @@ const router = createRouter({
 
 const getCurrentUser = () => {
   return new Promise((resolve, reject) => {
-    const removeListener = onAuthStateChanged(
+    const removeEventListener = onAuthStateChanged(
     getAuth(),
     (user) => {
-      removeListener();
+      removeEventListener();
       resolve(user)
     },
     reject
@@ -71,13 +71,13 @@ router.beforeEach(async (to, from, next) => {
  
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
   if(requiresAuth) {
-    if(getCurrentUser) {
+    if(await getCurrentUser) {
       next();
     }
   }
   else {
-    alert("not logged in")
     next()
+   
   }
 })
 

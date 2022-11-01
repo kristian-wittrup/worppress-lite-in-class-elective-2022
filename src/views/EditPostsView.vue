@@ -1,7 +1,7 @@
 <template>
   <div v-if="isLoggedin">
     <h1>
-      Edit page stuff - Hello  {{user}}
+      Edit page stuff - Hello  {{user.email}}
     </h1>
 
     <v-card class="bg-teal-lighten-5 pa-5 text-grey-darken-4">
@@ -35,15 +35,16 @@ import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import usePosts from '../modules/usePosts' 
 
+// added AND changed stuff in here
 import { onMounted } from 'vue'
+import useUsers from '@/modules/useUsers'
 
-//import useUsers from '@/modules/useUsers'
-
-//const { isLoggedin, isLoggedInTest } = useUsers()
+const { isLoggedin, isLoggedInTest, user } = useUsers()
 
 onMounted(() => {
-  //isLoggedInTest()
+  isLoggedInTest()
 })
+// ends here
 
 const { 
   posts,
@@ -61,6 +62,6 @@ onMounted(() => {
   getPostsData()
 })
 
-const user = localStorage.getItem('userLoginInfoFireBase')
+//const user = localStorage.getItem('userLoginInfoFireBase')
 
 </script>

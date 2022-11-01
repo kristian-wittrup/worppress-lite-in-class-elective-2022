@@ -1,24 +1,29 @@
 <template>
-  <div > <!-- v-if="isLoggedin" -->
-    only show if user is logged in
+  <div v-if="isLoggedin">
+    only show if user is logged in 
     
+    <h1>Hello {{user.email}}</h1>
+    <h1>Hello splitted name {{userNameOnly}}</h1>
   </div>
-  <h1>Hello</h1>
-
+  <div v-else>
+    Not logged in
+  </div>
 </template>
 
 <script setup>
-import {  onMounted } from 'vue'
-//import useUsers from '@/modules/useUsers'
-//const isLoggedin = ref(false)
+import useUsers from '@/modules/useUsers'
+import { computed } from '@vue/reactivity';
+import { onMounted } from 'vue';
 
-//const { isLoggedin } = useUsers()
+const { isLoggedInTest, isLoggedin, user } = useUsers()
+
 onMounted(() => {
-  
+  isLoggedInTest()
 })
 
-
-//const user = localStorage.getItem('userLoginInfoFireBase') // checking for the user info and store it in 'user'
+const userNameOnly = computed(() => {
+  return user.value.email.split('@')[0]
+})
 
 </script>
 

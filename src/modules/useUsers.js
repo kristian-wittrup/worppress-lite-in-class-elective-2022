@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 
 const useUsers = () => {
   const auth = getAuth();
@@ -34,7 +34,25 @@ const useUsers = () => {
     })
   }
 
+  const isLoggedin = ref(false)
+
+  const isLoggedInTest = () => {
+    const auth = getAuth();
+
+    user.value = auth.currentUser
+    onAuthStateChanged(auth, (user) => {
+      if(user) {
+        isLoggedin.value = true
+      }
+      else {
+        isLoggedin.value = false
+      }
+    })
+  }
+
   return {
+    isLoggedInTest,
+    isLoggedin,
     logIn,
     logOut,
     email,
